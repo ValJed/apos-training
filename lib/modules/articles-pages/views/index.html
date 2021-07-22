@@ -1,0 +1,36 @@
+{# lib/modules/people-pages/views/index.html #}
+{% extends "layout.html" %}
+{% block title %}{{ data.page.title }}{% endblock %}
+
+{% block main %}
+<div class="articles-list">
+  <h1>{{ data.page.title }}</h1>
+
+  <ul>
+    {% for piece in data.pieces %}
+      {% set image = apos.images.first(piece.image) %}
+      <li>
+        <a href="{{ piece._url }}">
+          <h2>{{ piece.title }}</h2>
+
+          {% if image %}
+            <img src="{{ apos.attachments.url(image) }}" />
+          {% endif %}
+
+          {{ apos.singleton(piece, 'content', 'apostrophe-rich-text') }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+
+  {% import 'apostrophe-pager:macros.html' as pager with context %}
+  {{
+    pager.render({
+      page: data.currentPage,
+      total: data.totalPages
+    }, data.url)
+  }}
+{% endblock %}

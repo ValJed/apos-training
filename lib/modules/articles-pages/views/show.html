@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}{{ data.piece.title }}{% endblock %}
+
+{% set image = apos.images.first(data.piece.image) %}
+
+{{ apos.log('apos.articlesPages => ', apos.articlesPages) }}
+
+{% block main %}
+  <div class="article">
+    <h1>{{ data.piece.title }}</h1>
+    <h2>{{ apos.modules['articles-pages'].toSentence(data.piece.slug) }}</h2>
+
+    {% if image %}
+      <img src="{{ apos.attachments.url(image) }}" />
+    {% endif %}
+
+    {{ apos.singleton(data.piece, 'content', 'apostrophe-rich-text') }}
+  </div>
+{% endblock %}

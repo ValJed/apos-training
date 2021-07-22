@@ -1,0 +1,21 @@
+<div class="articles-list">
+  <ul>
+    {% for piece in data.widget._pieces %}
+
+  {{ apos.log('apos => ', apos) }}
+
+      {% set image = apos.images.first(piece.image) %}
+      <li>
+        <a href="{{ piece._url }}">
+          <h2>{{ piece.title }}</h2>
+
+          {% if image %}
+            <img src="{{ apos.attachments.url(image) }}" />
+          {% endif %}
+
+          {{ apos.singleton(piece, 'content', 'apostrophe-rich-text') }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
